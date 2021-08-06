@@ -56,13 +56,12 @@ export const customTheme = {
     warning: "#f7ad02",
     error: "#f50057",
     greenPrimary: "#4caf50",
-    greenLight: "#388E3C"
-}
-
-export const status = {
-    open: "open",
-    progress: "progress",
-    testing: "testing",
-    done: "done",
-    cancelled: "cancelled"
+    greenLight: "#388E3C",
+    status: {
+        Open: "#7C4DFF",
+        Progress: "#03A9F4",
+        Testing: "#FBC02D",
+        Done: "#4CAF50",
+        Cancelled: "#F44336"
+    }
 }

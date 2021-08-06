@@ -67,7 +67,7 @@ export const mockData = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
         risk: "unassigned",
         developer: "unassigned",
-        status: "Progress",
+        status: "Cancelled",
         storyPoints: 3,
         startDate: moment(new Date()).format('DD/MM/YYYY'),
         endDate: moment(new Date()).format('DD/MM/YYYY'),
