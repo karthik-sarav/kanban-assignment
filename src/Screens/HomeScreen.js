@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { mockData } from "../MockData/MockData";
-import { headerConfig, groupByItems, customTheme, } from "../Configs/Constants";
+import { headerConfig, groupByItems } from "../Configs/Constants";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import CardComponent from "../Components/CardComponent";
 import ColumnHeader from "../Components/ColumnHeader";
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     display: "flex",
-    width:"fit-content",
+    width: "fit-content",
     paddingTop: "60px",
   },
   columnContainer: {
@@ -183,7 +183,6 @@ const HomeScreen = () => {
                 {(provided) => (
                   <div
                     id={item.headerTitle}
-                    key={index}
                     style={{ position: item.pinned ? "sticky" : "static" }}
                     className={classes.columnContainer}
                     {...provided.droppableProps}

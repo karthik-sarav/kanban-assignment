@@ -1,11 +1,7 @@
 export const headerConfig = {
     risk: [
         {
-            headerTitle: "unassigned",
-            pinned: false
-        },
-        {
-            headerTitle: "low",
+            headerTitle: "high",
             pinned: false
         },
         {
@@ -13,7 +9,11 @@ export const headerConfig = {
             pinned: false
         },
         {
-            headerTitle: "high",
+            headerTitle: "low",
+            pinned: false
+        },
+        {
+            headerTitle: "unassigned",
             pinned: false
         }
     ],
@@ -52,7 +52,17 @@ export const groupByItems = {
 
 export const customTheme = {
     primary: "#397ff1",
-    secondary: "#6aabfa",
+    secondary: "#2196f3",
     warning: "#f7ad02",
-    error: "#f9564c"
+    error: "#f50057",
+    greenPrimary: "#4caf50",
+    greenLight: "#388E3C"
+}
+
+export const status = {
+    open: "open",
+    progress: "progress",
+    testing: "testing",
+    done: "done",
+    cancelled: "cancelled"
 }
