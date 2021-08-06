@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
         borderRadius: "5px",
         height: "180px",
-        marginBottom: "25px"
+        marginBottom: "25px",
     },
     profileImage: {
         height: "30px",
@@ -77,55 +77,57 @@ const CardComponent = (props) => {
         <>
             <Draggable key={cardItem.id} draggableId={cardItem.id} index={index}>
                 {(provided) => (
-                    <div className={classes.cardItem} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} >
-                        <div style={{ padding: "15px 0 0 15px" }} >
-                            <Typography variant="subtitle1" style={{ fontWeight: "bold", letterSpacing: "0.5px" }}>{cardItem.title}</Typography>
-                        </div>
-
-                        <div>
-                            <div style={{ padding: "15px 10px 10px 15px", height: "90px" }}>
-                                <Typography variant="body1"> {cardItem?.id} </Typography>
+                    <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                        <div className={classes.cardItem} style={{ borderLeft: `6px solid ${customTheme.risk[cardItem.risk]}` }}>
+                            <div style={{ padding: "15px 0 0 15px" }} >
+                                <Typography variant="subtitle1" style={{ fontWeight: "bold", letterSpacing: "0.5px" }}>{cardItem.title}</Typography>
                             </div>
-                        </div>
 
-                        <div style={{ display: "flex" }} >
-                            <div style={{ display: "flex", marginLeft: "10px", width: "200px" }}>
-                                <OpenWithIcon
-                                    className={classes.cardIcon}
-                                    fontSize="medium"
-                                    onClick={handleExpand}
-                                />
-                                <ChatBubbleOutlineIcon
-                                    className={classes.cardIcon}
-                                    color="primary"
-                                    fontSize="medium"
-                                    onClick={(e) => handleAddComment(e, cardItem)}
-                                />
-                                <Chip style={{
-                                    color: "white",
-                                    fontWeight: "bold",
-                                    margin: "5px 0 0 8px",
-                                    backgroundColor: customTheme.status[cardItem.status]
-                                }}
-                                    size="small"
-                                    avatar={
-                                        <div
-                                            style={{
-                                                color: customTheme.status[cardItem.status],
-                                                backgroundColor: "whitesmoke",
-                                                alignSelf: "center",
-                                                borderRadius: "30px"
-                                            }
-                                            }>
-                                            <Typography style={{ fontSize: "10px", fontWeight: "bold", alignSelf: "center", margin: "2px 2px 0px 6px" }}>
-                                                {cardItem.status[0]}
-                                            </Typography>
-                                        </div>}
-                                    label={cardItem.status}
-                                />
+                            <div>
+                                <div style={{ padding: "15px 10px 10px 15px", height: "90px" }}>
+                                    <Typography variant="body1"> {cardItem?.id} </Typography>
+                                </div>
                             </div>
-                            <div className={classes.profileImage}>
-                                <CustomProfile />
+
+                            <div style={{ display: "flex" }} >
+                                <div style={{ display: "flex", marginLeft: "10px", width: "200px" }}>
+                                    <OpenWithIcon
+                                        className={classes.cardIcon}
+                                        fontSize="medium"
+                                        onClick={handleExpand}
+                                    />
+                                    <ChatBubbleOutlineIcon
+                                        className={classes.cardIcon}
+                                        color="primary"
+                                        fontSize="medium"
+                                        onClick={(e) => handleAddComment(e, cardItem)}
+                                    />
+                                    <Chip style={{
+                                        color: "white",
+                                        fontWeight: "bold",
+                                        margin: "5px 0 0 8px",
+                                        backgroundColor: customTheme.status[cardItem.status]
+                                    }}
+                                        size="small"
+                                        avatar={
+                                            <div
+                                                style={{
+                                                    color: customTheme.status[cardItem.status],
+                                                    backgroundColor: "whitesmoke",
+                                                    alignSelf: "center",
+                                                    borderRadius: "30px"
+                                                }
+                                                }>
+                                                <Typography style={{ fontSize: "10px", fontWeight: "bold", alignSelf: "center", margin: "2px 2px 0px 6px" }}>
+                                                    {cardItem.status[0]}
+                                                </Typography>
+                                            </div>}
+                                        label={cardItem.status}
+                                    />
+                                </div>
+                                <div className={classes.profileImage}>
+                                    <CustomProfile />
+                                </div>
                             </div>
                         </div>
                     </div>

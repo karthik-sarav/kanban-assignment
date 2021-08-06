@@ -42,12 +42,35 @@ export const headerConfig = {
             headerTitle: "mike",
             pinned: false
         },
+    ],
+    status: [
+        {
+            headerTitle: "Open",
+            pinned: false
+        },
+        {
+            headerTitle: "Progress",
+            pinned: false
+        },
+        {
+            headerTitle: "Testing",
+            pinned: false
+        },
+        {
+            headerTitle: "Done",
+            pinned: false
+        },
+        {
+            headerTitle: "Cancelled",
+            pinned: false
+        },
     ]
 }
 
 export const groupByItems = {
     risk: "risk",
-    develop: "developer"
+    develop: "developer",
+    status: "status"
 }
 
 export const customTheme = {
@@ -63,5 +86,11 @@ export const customTheme = {
         Testing: "#FBC02D",
         Done: "#4CAF50",
         Cancelled: "#F44336"
+    },
+    risk: {
+        high: "#F44336",
+        medium: "#FBC02D",
+        low: "#03A9F4",
+        unassigned: "#7C4DFF"
     }
 }
