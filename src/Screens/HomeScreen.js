@@ -17,14 +17,16 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     display: "flex",
+    width:"fit-content",
     paddingTop: "60px",
-    height: "100%",
   },
   columnContainer: {
     backgroundColor: "whitesmoke",
     borderRadius: "18px",
     border: "10px solid white",
     padding: "20px",
+    left: "0",
+    overflow: "scroll",
   },
   floatIcon: {
     position: "fixed",
@@ -182,7 +184,7 @@ const HomeScreen = () => {
                   <div
                     id={item.headerTitle}
                     key={index}
-                    style={{ left: "0", position: item.pinned ? "sticky" : "static" }}
+                    style={{ position: item.pinned ? "sticky" : "static" }}
                     className={classes.columnContainer}
                     {...provided.droppableProps}
                     ref={provided.innerRef}
