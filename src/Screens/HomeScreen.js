@@ -166,8 +166,8 @@ const HomeScreen = () => {
   return (
     <div className={classes.root}>
       <NavbarComponent columnConfig={columnConfig} handleDropdownClick={handleDropdownClick} />
-      <div style={{ margin: "67px 0px -2px 18px" }}>
-        <Typography style={{ letterSpacing: "2px" }}>
+      <div style={{ margin: "67px 0px -2px 10px" }}>
+        <Typography style={{ letterSpacing: "2px", position: "sticky", left: 40, width: "fit-content" }}>
           {`${selectedGroup.toUpperCase()} BOARD`}
         </Typography>
       </div>
