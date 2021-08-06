@@ -1,10 +1,10 @@
-import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import OpenWithIcon from '@material-ui/icons/OpenWith';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import FlagIcon from '@material-ui/icons/Flag';
 import { Draggable } from "react-beautiful-dnd";
 import { Typography } from "@material-ui/core";
+import CustomProfile from '../Images/CustomProfile';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "5px",
         height: "180px",
         marginBottom: "25px"
+    },
+    profileImage: {
+        height: "30px",
+        width: "30px",
+        margin: "0px 0 0 125px",
     }
 }));
 
@@ -36,8 +41,8 @@ const CardComponent = (props) => {
                             <ChatBubbleOutlineIcon style={{ padding: "2px", margin: "5px" }} color="primary" fontSize="medium" />
                             <FlagIcon style={{ padding: "2px", margin: "5px" }} color="primary" fontSize="medium" />
                         </div>
-                        <div style={{ height: "30px", width: "30px", margin: "-10px 0 0 125px" }}>
-                            <Avatar >{cardItem.developer.slice(0, 1).toUpperCase()}</Avatar>
+                        <div className={classes.profileImage}>
+                            <CustomProfile />
                         </div>
                     </div>
                 </div>

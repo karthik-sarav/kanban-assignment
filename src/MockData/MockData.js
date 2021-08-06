@@ -35,8 +35,3 @@ export const mockData = [
         developer: "unassigned",
     }
 ]
-
-export const config = {
-    risk: ["unassigned", "low", "medium", "high"],
-    developer: ["unassigned", "andy", "candy", "karthik", "patrick", "mike",]
-}
