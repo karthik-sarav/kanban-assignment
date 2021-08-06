@@ -33,5 +33,12 @@ export const mockData = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
         risk: "low",
         developer: "unassigned",
+    },
+    {
+        id: "KP-006",
+        title: "Fix count variable",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        risk: "low",
+        developer: "unassigned",
     }
 ]
