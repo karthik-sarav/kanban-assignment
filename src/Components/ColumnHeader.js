@@ -1,8 +1,8 @@
-import DockIcon from '@material-ui/icons/Dock';
-import DockTwoToneIcon from '@material-ui/icons/DockTwoTone';
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import Badge from 'react-bootstrap/Badge'
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
 const useStyles = makeStyles((theme) => ({
     columnHeader: {
@@ -36,26 +36,27 @@ const ColumnHeader = (props) => {
     return (
         <div className={classes.columnHeader} >
             <div>
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" style={{ letterSpacing: "2px" }}>
                     {groupTitle.toUpperCase()}
                 </Typography>
-
             </div>
             <div className={classes.headerAction}>
                 <Badge bg={countBg(count)}>{count}</Badge>
-                {isPinned ?
-                    <DockTwoToneIcon
-                        className={classes.dockIcon}
-                        color="primary"
-                        fontSize="medium"
-                        onClick={(e) => handlePinClick(e, groupTitle)}
-                    /> :
-                    <DockIcon
-                        className={classes.dockIcon}
-                        color="primary"
-                        fontSize="medium"
-                        onClick={(e) => handlePinClick(e, groupTitle)}
-                    />
+                {
+                    isPinned ?
+                        <BookmarkIcon
+                            className={classes.dockIcon}
+                            color="primary"
+                            fontSize="medium"
+                            onClick={(e) => handlePinClick(e, groupTitle)}
+                        />
+                        :
+                        <BookmarkBorderIcon
+                            className={classes.dockIcon}
+                            color="primary"
+                            fontSize="medium"
+                            onClick={(e) => handlePinClick(e, groupTitle)}
+                        />
                 }
             </div>
         </div>

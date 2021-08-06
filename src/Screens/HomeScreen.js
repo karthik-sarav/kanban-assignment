@@ -9,6 +9,7 @@ import SnackbarComponent from "../Components/SnackBarComponent";
 import NavbarComponent from "../Components/NavbarComponent";
 import Fab from '@material-ui/core/Fab';
 import LeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     width: "fit-content",
-    paddingTop: "60px",
   },
   columnContainer: {
     backgroundColor: "whitesmoke",
@@ -166,6 +166,11 @@ const HomeScreen = () => {
   return (
     <div className={classes.root}>
       <NavbarComponent columnConfig={columnConfig} handleDropdownClick={handleDropdownClick} />
+      <div style={{ margin: "67px 0px -2px 18px" }}>
+        <Typography style={{ letterSpacing: "2px" }}>
+          {`${selectedGroup.toUpperCase()} BOARD`}
+        </Typography>
+      </div>
       <div id="container" className={classes.container}>
         {scrollLeft &&
           <div className={classes.floatIcon}>

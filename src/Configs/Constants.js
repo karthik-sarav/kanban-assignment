@@ -20,27 +20,38 @@ export const headerConfig = {
     developer: [
         {
             headerTitle: "unassigned",
-            pinned: false
+            pinned: false,
+            displayColor: "#757575",
         },
         {
             headerTitle: "andy",
-            pinned: false
+            pinned: false,
+            email: "andy@gmail.com",
+            displayColor: "#C5CAE9",
         },
         {
             headerTitle: "candy",
-            pinned: false
+            pinned: false,
+            email: "candy@gmail.com",
+            displayColor: "#757575",
         },
         {
             headerTitle: "karthik",
-            pinned: false
+            pinned: false,
+            email: "karthik.s@gmail.com",
+            displayColor: "#C5CAE9",
         },
         {
             headerTitle: "patrick",
-            pinned: false
+            pinned: false,
+            email: "patrick@gmail.com",
+            displayColor: "#757575",
         },
         {
             headerTitle: "mike",
-            pinned: false
+            pinned: false,
+            email: "kmike@gmail.com",
+            displayColor: "#757575",
         },
     ],
     status: [

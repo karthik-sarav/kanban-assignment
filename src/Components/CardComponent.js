@@ -3,14 +3,15 @@ import OpenWithIcon from '@material-ui/icons/OpenWith';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import { Draggable } from "react-beautiful-dnd";
 import { Typography } from "@material-ui/core";
-import CustomProfile from '../Images/CustomProfile';
-import { customTheme } from '../Configs/Constants';
+import { customTheme, headerConfig } from '../Configs/Constants';
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,10 +23,14 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "25px",
     },
     profileImage: {
-        height: "30px",
-        width: "30px",
-        padding: "2px",
-        marginLeft: "25px"
+        marginLeft: "25px",
+        width: "32px",
+        height: "32px",
+        borderRadius: "30px",
+        backgroundColor: "whitesmoke",
+        "&:hover": {
+            cursor: "pointer"
+        }
     },
     cardIcon: {
         padding: "2px", margin: "5px", color: customTheme.primary,
@@ -125,9 +130,24 @@ const CardComponent = (props) => {
                                         label={cardItem.status}
                                     />
                                 </div>
-                                <div className={classes.profileImage}>
-                                    <CustomProfile />
-                                </div>
+                                {cardItem && cardItem.developer !== "unassigned" ?
+                                    <div className={classes.profileImage}>
+                                        <Tooltip title={
+                                            <div style={{ whiteSpace: 'pre-line' }}>{`${cardItem.developer.toUpperCase()} \n ${headerConfig.developer.find(d => d.headerTitle === cardItem.developer).email}`}
+                                            </div>
+
+                                        } arrow>
+                                            <Typography
+                                                style={{
+                                                    color: "black",
+                                                    margin: "5px 0 0 10px"
+                                                }}
+                                                fontSize="large" >{cardItem.developer[0].toUpperCase()}</Typography>
+                                        </Tooltip>
+                                    </div>
+                                    :
+                                    null
+                                }
                             </div>
                         </div>
                     </div>
@@ -170,7 +190,7 @@ const CardComponent = (props) => {
                 <Modal size="lg" show={expandView} onHide={handleCloseExpand}>
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            <Typography variant="subtitle1">{`${cardItem.id} - ${cardItem.title}`}</Typography>
+                            <Typography variant="subtitle1" style={{ marginLeft: "15px" }}>{`${cardItem.id} - ${cardItem.title}`}</Typography>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
