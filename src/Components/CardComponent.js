@@ -185,7 +185,7 @@ const CardComponent = (props) => {
                                     {
                                         [...cardItem.comments].reverse().map((comment, index) => {
                                             return (<Typography key={index} variant="body2" style={{ margin: "3px" }}>
-                                                {`${index + 1} - ${comment}`}
+                                                {` ~ ${comment}`}
                                             </Typography>)
                                         })
                                     }

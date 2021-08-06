@@ -107,16 +107,17 @@ const HomeScreen = () => {
         ];
 
         let selectedColumn = updatedData.filter(
-          (i) => i[selectedGroup] == destination.droppableId
+          (i) => i[selectedGroup] === destination.droppableId
         );
         const items = [...selectedColumn];
-        const [reorderedItem] = items.splice(destination.index, 1);
-        items.splice(destination.index + 1, 0, reorderedItem);
+        let updatedFoundItem = items.find(i => i.id === draggableId)
+        let filteredInSelectedColumn = items.filter(i => i.id !== updatedFoundItem.id);
+        filteredInSelectedColumn.splice(destination.index, 0, updatedFoundItem);
         let reorderedData = [
           ...updatedData.filter(
             (i) => i[selectedGroup] != destination.droppableId
           ),
-          ...items,
+          ...filteredInSelectedColumn,
         ];
         setData(reorderedData);
       } else {
