@@ -32,6 +32,18 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     right: "70px",
     bottom: "8vh",
+  },
+  titleContainer: {
+    margin: "67px 0px -2px 10px"
+  },
+  title: {
+    letterSpacing: "2px",
+    position: "sticky",
+    left: 40,
+    width: "fit-content"
+  },
+  columnRow: {
+    width: "18rem"
   }
 }));
 
@@ -81,7 +93,7 @@ const HomeScreen = () => {
     });
   }
 
-  const reorderData = (source, destination) => {
+  const reorderSameColumn = (source, destination) => {
     const selectedColumn = data.filter(
       (i) => i[selectedGroup] === source.droppableId
     );
@@ -94,34 +106,37 @@ const HomeScreen = () => {
     ];
   };
 
+  const reorderDifferentColumn = (destination, draggableId) => {
+    let foundItem = data.find((i) => i.id === draggableId);
+    let filteredData = data.filter((i) => i.id !== draggableId);
+    let updatedData = [
+      ...filteredData,
+      { ...foundItem, [selectedGroup]: destination.droppableId },
+    ];
+
+    let selectedColumn = updatedData.filter(
+      (i) => i[selectedGroup] === destination.droppableId
+    );
+    const items = [...selectedColumn];
+    let updatedFoundItem = items.find(i => i.id === draggableId)
+    let filteredInSelectedColumn = items.filter(i => i.id !== updatedFoundItem.id);
+    filteredInSelectedColumn.splice(destination.index, 0, updatedFoundItem);
+    return [
+      ...updatedData.filter(
+        (i) => i[selectedGroup] !== destination.droppableId
+      ),
+      ...filteredInSelectedColumn,
+    ];
+  }
+
   const handleOnDragEnd = (result) => {
     try {
       const { source, destination, draggableId } = result;
       if (!result) return;
       if (source.droppableId !== destination.droppableId) {
-        let foundItem = data.find((i) => i.id === draggableId);
-        let filteredData = data.filter((i) => i.id !== draggableId);
-        let updatedData = [
-          ...filteredData,
-          { ...foundItem, [selectedGroup]: destination.droppableId },
-        ];
-
-        let selectedColumn = updatedData.filter(
-          (i) => i[selectedGroup] === destination.droppableId
-        );
-        const items = [...selectedColumn];
-        let updatedFoundItem = items.find(i => i.id === draggableId)
-        let filteredInSelectedColumn = items.filter(i => i.id !== updatedFoundItem.id);
-        filteredInSelectedColumn.splice(destination.index, 0, updatedFoundItem);
-        let reorderedData = [
-          ...updatedData.filter(
-            (i) => i[selectedGroup] !== destination.droppableId
-          ),
-          ...filteredInSelectedColumn,
-        ];
-        setData(reorderedData);
+        setData(reorderDifferentColumn(destination, draggableId));
       } else {
-        setData(reorderData(source, destination));
+        setData(reorderSameColumn(source, destination));
       }
     }
     catch (err) {
@@ -166,8 +181,8 @@ const HomeScreen = () => {
   return (
     <div className={classes.root}>
       <NavbarComponent columnConfig={columnConfig} handleDropdownClick={handleDropdownClick} />
-      <div style={{ margin: "67px 0px -2px 10px" }}>
-        <Typography style={{ letterSpacing: "2px", position: "sticky", left: 40, width: "fit-content" }}>
+      <div className={classes.titleContainer}>
+        <Typography className={classes.title}>
           {`${selectedGroup.toUpperCase()} BOARD`}
         </Typography>
       </div>
@@ -194,7 +209,7 @@ const HomeScreen = () => {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
-                    <div style={{ width: "18rem" }}>
+                    <div className={classes.columnRow}>
                       <ColumnHeader
                         groupTitle={item.headerTitle}
                         isPinned={item.pinned}
