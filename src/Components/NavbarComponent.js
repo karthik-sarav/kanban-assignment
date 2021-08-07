@@ -2,22 +2,37 @@ import { Dropdown } from "react-bootstrap";
 import { makeStyles } from "@material-ui/core/styles";
 import { customTheme } from "../Configs/Constants";
 import { Typography } from "@material-ui/core";
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 
 const useStyles = makeStyles((theme) => ({
     navbar: {
         display: "flex",
-        padding: "10px",
+        flexDirection: "row-reverse",
+        padding: "10px 25px",
         position: "fixed",
         top: 0,
         width: "100%",
         zIndex: 999,
-        backgroundColor: customTheme.primary
+        backgroundColor: customTheme.primary,
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     dropdownToggle: {
         color: customTheme.primary,
-        borderRadius: "35px",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        "&:active": {
+            borderRadius: "5px",
+        },
+        "&:not(:focus-visible)": {
+            color: customTheme.primary,
+            backgroundColor: "white"
+        }
+    },
+    title: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
     }
 }));
 
@@ -27,7 +42,7 @@ const NavbarComponent = (props) => {
 
     return (
         <div className={classes.navbar}>
-            <Dropdown>
+            <Dropdown className={classes.dropdown} >
                 <Dropdown.Toggle id="dropdown-basic" className={classes.dropdownToggle} >
                     <Typography variant="button">Group by</Typography>
                 </Dropdown.Toggle>
@@ -41,6 +56,10 @@ const NavbarComponent = (props) => {
                     })}
                 </Dropdown.Menu>
             </Dropdown>
+            <div className={classes.title}>
+                <DashboardIcon style={{ color: "whitesmoke", margin: "0 10px" }} />
+                <Typography style={{ fontSize: "20px", color: "whitesmoke", letterSpacing: "2px", wordSpacing: "2px" }} >KANBAN BOARD</Typography>
+            </div>
         </div>
     )
 }

@@ -11,7 +11,6 @@ import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -84,13 +83,14 @@ const CardComponent = (props) => {
                 {(provided) => (
                     <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                         <div className={classes.cardItem} style={{ borderLeft: `6px solid ${customTheme.risk[cardItem.risk]}` }}>
-                            <div style={{ padding: "15px 0 0 15px" }} >
+                            <div onClick={handleExpand} style={{ padding: "15px 0 0 15px" }} >
                                 <Typography variant="subtitle1" style={{ fontWeight: "bold", letterSpacing: "0.5px" }}>{cardItem.title}</Typography>
                             </div>
 
                             <div>
                                 <div style={{ padding: "15px 10px 10px 15px", height: "90px" }}>
                                     <Typography variant="body1"> {cardItem?.id} </Typography>
+                                    <Typography variant="body2"> {`Complexity - ${cardItem?.storyPoints}`} </Typography>
                                 </div>
                             </div>
 
