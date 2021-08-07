@@ -83,13 +83,13 @@ const HomeScreen = () => {
 
   const reorderData = (source, destination) => {
     const selectedColumn = data.filter(
-      (i) => i[selectedGroup] == source.droppableId
+      (i) => i[selectedGroup] === source.droppableId
     );
     const items = [...selectedColumn];
     const [reorderedItem] = items.splice(source.index, 1);
     items.splice(destination.index, 0, reorderedItem);
     return [
-      ...data.filter((i) => i[selectedGroup] != source.droppableId),
+      ...data.filter((i) => i[selectedGroup] !== source.droppableId),
       ...items,
     ];
   };
@@ -115,7 +115,7 @@ const HomeScreen = () => {
         filteredInSelectedColumn.splice(destination.index, 0, updatedFoundItem);
         let reorderedData = [
           ...updatedData.filter(
-            (i) => i[selectedGroup] != destination.droppableId
+            (i) => i[selectedGroup] !== destination.droppableId
           ),
           ...filteredInSelectedColumn,
         ];
@@ -134,16 +134,16 @@ const HomeScreen = () => {
   };
 
   const handlePinClick = (e, groupTitle) => {
-    let pinLimit = columnConfig[selectedGroup].filter(e => e.pinned == true).length;
-    let selectedPinGroup = columnConfig[selectedGroup].find(i => i.headerTitle == groupTitle);
-    if (pinLimit < 1 || pinnedGroup.headerTitle == groupTitle) {
+    let pinLimit = columnConfig[selectedGroup].filter(e => e.pinned === true).length;
+    let selectedPinGroup = columnConfig[selectedGroup].find(i => i.headerTitle === groupTitle);
+    if (pinLimit < 1 || pinnedGroup.headerTitle === groupTitle) {
       setPinnedGroup(selectedPinGroup)
-      let updated = { ...columnConfig, [selectedGroup]: [{ ...selectedPinGroup, pinned: !selectedPinGroup.pinned }, ...columnConfig[selectedGroup].filter(i => i.headerTitle != groupTitle)] };
+      let updated = { ...columnConfig, [selectedGroup]: [{ ...selectedPinGroup, pinned: !selectedPinGroup.pinned }, ...columnConfig[selectedGroup].filter(i => i.headerTitle !== groupTitle)] };
       setColumnConfig(updated)
       setSnackBarConfig({
         open: true,
-        message: pinnedGroup.headerTitle == groupTitle ? "Unpinned" : "Successfully pinned!",
-        severity: pinnedGroup.headerTitle == groupTitle ? "info" : "success"
+        message: pinnedGroup.headerTitle === groupTitle ? "Unpinned" : "Successfully pinned!",
+        severity: pinnedGroup.headerTitle === groupTitle ? "info" : "success"
       })
     }
     else {
