@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import OpenWithIcon from '@material-ui/icons/OpenWith';
+import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import { Draggable } from "react-beautiful-dnd";
 import { Typography } from "@material-ui/core";
@@ -92,7 +92,7 @@ const CardComponent = (props) => {
 
                             <div style={{ display: "flex" }} >
                                 <div className={classes.cardFooter}>
-                                    <OpenWithIcon
+                                    <AspectRatioIcon
                                         className={classes.cardIcon}
                                         fontSize="medium"
                                         onClick={handleExpand}

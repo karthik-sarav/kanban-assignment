@@ -9,6 +9,7 @@ import SnackbarComponent from "../Components/SnackBarComponent";
 import NavbarComponent from "../Components/NavbarComponent";
 import Fab from '@material-ui/core/Fab';
 import LeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import RightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +62,7 @@ const HomeScreen = () => {
 
   const [xOffset, setXOffset] = useState(null);
   const [scrollLeft, setScrollLeft] = useState(false);
+  const [scrollRight, setScrollRight] = useState(false);
 
   function handleScrollHorizontal() {
     setXOffset(window.pageXOffset);
@@ -74,12 +76,21 @@ const HomeScreen = () => {
   })
 
   useEffect(() => {
-    if (xOffset > 390) {
+    if (xOffset >= 300) {
       setScrollLeft(true);
-    } else {
+      setScrollRight(false);
+    }
+    if (xOffset < 300) {
+      setScrollRight(true);
       setScrollLeft(false);
     }
-  }, [xOffset])
+    let containerWidth = document.getElementById("container").clientWidth;
+    if (containerWidth < 1440 && selectedGroup) {
+      setScrollRight(false);
+      setScrollLeft(false);
+    }
+
+  }, [setScrollRight, setScrollLeft, xOffset, selectedGroup])
 
   const handleDropdownClick = (e, groupByItem) => {
     setSelectedGroup(groupByItem);
@@ -178,6 +189,10 @@ const HomeScreen = () => {
     window.scrollBy(-window.screen.availWidth, 0);
   }
 
+  const handlerightScroll = () => {
+    window.scrollBy(window.screen.availWidth, 0);
+  }
+
   return (
     <div className={classes.root}>
       <NavbarComponent columnConfig={columnConfig} handleDropdownClick={handleDropdownClick} />
@@ -191,6 +206,13 @@ const HomeScreen = () => {
           <div className={classes.floatIcon}>
             <Fab color="primary" onClick={handleLeftScroll} >
               <LeftIcon />
+            </Fab>
+          </div>
+        }
+        {scrollRight &&
+          <div className={classes.floatIcon}>
+            <Fab color="primary" onClick={handlerightScroll} >
+              <RightIcon />
             </Fab>
           </div>
         }
