@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center"
     },
     dropdownToggle: {
-        marginRight: "50px",
+        marginRight: "10px",
         color: customTheme.primary,
         backgroundColor: "white",
     },
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavbarComponent = (props) => {
     const classes = useStyles();
-    const { columnConfig, handleDropdownClick } = props;
+    const { columnConfig, handleDropdownClick, handleFilterClick } = props;
 
     const [showAddModal, setShowAddModal] = useState(false);
     const [snackBarConfig, setSnackBarConfig] = useState({
@@ -75,6 +75,22 @@ const NavbarComponent = (props) => {
                                     </Dropdown.Item>
                                 );
                             })}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown>
+                        <Dropdown.Toggle className={classes.dropdownToggle} id="dropdown-filter">
+                            <Typography variant="button">Filter</Typography>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {
+                                columnConfig.developer.map(dev => {
+                                    return (
+                                        <Dropdown.Item key={dev.headerTitle} onClick={(e) => handleFilterClick(e, dev.headerTitle)}>
+                                            <Typography variant="caption">{dev.headerTitle.toUpperCase()}</Typography>
+                                        </Dropdown.Item>
+                                    );
+                                })
+                            }
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>

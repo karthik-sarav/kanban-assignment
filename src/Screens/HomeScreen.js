@@ -12,6 +12,8 @@ import Fab from '@material-ui/core/Fab';
 import LeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import RightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Typography } from "@material-ui/core";
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: "8vh",
   },
   titleContainer: {
+    display: "flex",
     margin: "67px 0px -2px 10px"
   },
   title: {
@@ -43,6 +46,13 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     left: 40,
     width: "fit-content"
+  },
+  filterTitle: {
+    margin: "0px 22px 10px 50px",
+    letterSpacing: "1px",
+    position: "sticky",
+    alignItems: "center",
+    left: 250
   },
   columnRow: {
     width: "18rem"
@@ -60,6 +70,8 @@ const HomeScreen = (props) => {
     message: "",
     severity: ""
   });
+
+  const [filterBy, setFilterBy] = useState(null);
 
   const [xOffset, setXOffset] = useState(null);
   const [scrollLeft, setScrollLeft] = useState(false);
@@ -96,6 +108,10 @@ const HomeScreen = (props) => {
   const handleDropdownClick = (e, groupByItem) => {
     setSelectedGroup(groupByItem);
   };
+
+  const handleFilterClick = (e, dev) => {
+    setFilterBy(dev)
+  }
 
   const handleSnackClose = () => {
     setSnackBarConfig({
@@ -183,7 +199,10 @@ const HomeScreen = (props) => {
   }
 
   const calculateCount = (item) => {
-    return mockData.filter((element) => element[selectedGroup] === item.headerTitle).length
+    return mockData
+      .filter((element) => element[selectedGroup] === item.headerTitle)
+      .filter((element) => filterBy !== null ? element.developer === filterBy : element)
+      .length
   }
 
   const handleLeftScroll = () => {
@@ -196,11 +215,30 @@ const HomeScreen = (props) => {
 
   return (
     <div className={classes.root}>
-      <NavbarComponent columnConfig={columnConfig} handleDropdownClick={handleDropdownClick} />
+      <NavbarComponent
+        columnConfig={columnConfig}
+        handleDropdownClick={handleDropdownClick}
+        handleFilterClick={handleFilterClick}
+      />
       <div className={classes.titleContainer}>
         <Typography className={classes.title}>
           {`${selectedGroup.toUpperCase()} BOARD`}
         </Typography>
+        {filterBy &&
+          <>
+            <Typography className={classes.filterTitle} variant="body2">FILTERED BY -
+              <Chip
+                style={{ marginLeft: "10px" }}
+                variant="outlined"
+                size="small" color="primary"
+                onDelete={() => setFilterBy(null)}
+                avatar={<Avatar>{filterBy[0].toUpperCase()}</Avatar>}
+                label={filterBy.toUpperCase()}
+              />
+            </Typography>
+
+          </>
+        }
       </div>
       <div id="container" className={classes.container}>
         {scrollLeft &&
@@ -239,15 +277,18 @@ const HomeScreen = (props) => {
                         count={calculateCount(item)}
                         handlePinClick={handlePinClick} />
                       <div>
-                        {mockData.filter((element) => element[selectedGroup] === item.headerTitle).map((cardItem, index) => {
-                          return (
-                            <CardComponent
-                              key={index}
-                              cardItem={cardItem}
-                              index={index}
-                            />
-                          );
-                        })}
+                        {mockData
+                          .filter((element) => element[selectedGroup] === item.headerTitle)
+                          .filter((element) => filterBy !== null ? element.developer === filterBy : element)
+                          .map((cardItem, index) => {
+                            return (
+                              <CardComponent
+                                key={index}
+                                cardItem={cardItem}
+                                index={index}
+                              />
+                            );
+                          })}
                       </div>
                     </div>
                     {provided.placeholder}
