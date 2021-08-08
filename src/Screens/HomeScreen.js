@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux"
+import { reorderItems } from "../Actions/ItemActions"
 import { makeStyles } from "@material-ui/core/styles";
-import { mockData } from "../MockData/MockData";
 import { headerConfig, groupByItems } from "../Configs/Constants";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import CardComponent from "../Components/CardComponent";
@@ -48,11 +49,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
   const classes = useStyles();
-  const [data, setData] = useState(mockData);
+  const { mockData, reorderItems } = props;
   const [columnConfig, setColumnConfig] = useState(headerConfig);
-  const [selectedGroup, setSelectedGroup] = useState(groupByItems.risk);
+  const [selectedGroup, setSelectedGroup] = useState(groupByItems.status);
   const [pinnedGroup, setPinnedGroup] = useState({ headerTitle: "", pinned: "" });
   const [snackBarConfig, setSnackBarConfig] = useState({
     open: false,
@@ -105,21 +106,21 @@ const HomeScreen = () => {
   }
 
   const reorderSameColumn = (source, destination) => {
-    const selectedColumn = data.filter(
+    const selectedColumn = mockData.filter(
       (i) => i[selectedGroup] === source.droppableId
     );
     const items = [...selectedColumn];
     const [reorderedItem] = items.splice(source.index, 1);
     items.splice(destination.index, 0, reorderedItem);
     return [
-      ...data.filter((i) => i[selectedGroup] !== source.droppableId),
+      ...mockData.filter((i) => i[selectedGroup] !== source.droppableId),
       ...items,
     ];
   };
 
   const reorderDifferentColumn = (destination, draggableId) => {
-    let foundItem = data.find((i) => i.id === draggableId);
-    let filteredData = data.filter((i) => i.id !== draggableId);
+    let foundItem = mockData.find((i) => i.id === draggableId);
+    let filteredData = mockData.filter((i) => i.id !== draggableId);
     let updatedData = [
       ...filteredData,
       { ...foundItem, [selectedGroup]: destination.droppableId },
@@ -145,9 +146,9 @@ const HomeScreen = () => {
       const { source, destination, draggableId } = result;
       if (!result) return;
       if (source.droppableId !== destination.droppableId) {
-        setData(reorderDifferentColumn(destination, draggableId));
+        reorderItems(reorderDifferentColumn(destination, draggableId));
       } else {
-        setData(reorderSameColumn(source, destination));
+        reorderItems(reorderSameColumn(source, destination));
       }
     }
     catch (err) {
@@ -182,7 +183,7 @@ const HomeScreen = () => {
   }
 
   const calculateCount = (item) => {
-    return data.filter((element) => element[selectedGroup] === item.headerTitle).length
+    return mockData.filter((element) => element[selectedGroup] === item.headerTitle).length
   }
 
   const handleLeftScroll = () => {
@@ -238,7 +239,7 @@ const HomeScreen = () => {
                         count={calculateCount(item)}
                         handlePinClick={handlePinClick} />
                       <div>
-                        {data.filter((element) => element[selectedGroup] === item.headerTitle).map((cardItem, index) => {
+                        {mockData.filter((element) => element[selectedGroup] === item.headerTitle).map((cardItem, index) => {
                           return (
                             <CardComponent
                               key={index}
@@ -267,4 +268,12 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+const mapStateToProps = (state) => ({
+  mockData: state.ItemReducer.mockData
+})
+
+const mapDispatchToProps = {
+  reorderItems
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
